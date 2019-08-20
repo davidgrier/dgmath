@@ -12,17 +12,17 @@ def akde(x, y, weight=None, alpha=0.5):
 
     Arguments
     ---------
-    x: ndarray or list of ndarrays
+    x : ndarray or list of ndarrays
         Measured data points
-    y: ndarray or list of ndarrays
+    y : ndarray or list of ndarrays
         Points at which the density should be estimated
 
     Keywords
     --------
-    weight: ndarray
+    weight : ndarray | optional
         Value at each of the measured data points.
         Default: 1.
-    alpha: float
+    alpha : float | optional
         adaptation factor: alpha >= 0
         0: non-adaptive
         0.5: default
@@ -30,7 +30,7 @@ def akde(x, y, weight=None, alpha=0.5):
 
     Returns
     -------
-    rho: ndarray
+    rho : ndarray
         Density at each of the sampling points, optionally weighted
         by the specified values.
     '''
@@ -48,20 +48,20 @@ def kde(x, y, weight=None, scale=None, stats=False):
 
     Arguments
     ---------
-    x: ndarray or list of ndarrays
+    x : ndarray or list of ndarrays
         Measured data points
-    y: ndarray or list of ndarrays
+    y : ndarray or list of ndarrays
         Points at which the density should be estimated
 
     Keywords
     --------
-    weight: ndarray
+    weight : ndarray | optional
         Value at each of the measured data points.
         Default: 1.
-    scale: float
+    scale : float | optional
         Scale factor for smoothing.
         Default: Computed from data.
-    stats: bool
+    stats : bool
         Return density, optimal width and variance if set
         Default: False
 
@@ -85,17 +85,17 @@ def akde_1d(x, y, weight=None, alpha=0.5):
 
     Arguments
     ---------
-    x: ndarray
+    x : ndarray
         Measured data points
-    y: ndarray
+    y : ndarray
         Points at which the density should be estimated
 
     Keywords
     --------
-    weight: ndarray
+    weight : ndarray | optional
         Value at each of the measured data points.
         Default: 1.
-    alpha: float
+    alpha : float | optional
         adaptation factor: alpha >= 0
         0: non-adaptive
         0.5: default
@@ -103,7 +103,7 @@ def akde_1d(x, y, weight=None, alpha=0.5):
 
     Returns
     -------
-    rho: ndarray
+    rho : ndarray
         Density at each of the sampling points, optionally weighted
         by the specified values.
     '''
@@ -140,18 +140,18 @@ def akde_nd(x, y, weight=None, alpha=0.5):
 
     Arguments
     ---------
-    x: list of ndarrays
+    x : list of ndarrays
         Measured data points
-    y: list of ndarrays
+    y : list of ndarrays
         Points at which the density should be estimated
 
     Keywords
     --------
-    weight: ndarray
+    weight : ndarray | optional
         Value at each of the measured data points.
         Default: 1.
 
-    alpha: float
+    alpha : float | optional
         adaptation factor: alpha >= 0
         0: non-adaptive
         0.5: default
@@ -199,31 +199,31 @@ def kde_1d(x, y, scale=None, weight=None, stats=False):
 
     Arguments
     ---------
-    x: ndarray
+    x : ndarray
         Measured data points
-    y: ndarray
+    y : ndarray
         Points at which the density should be estimated
 
     Keywords
     --------
-    scale: float
+    scale : float
         Scale factor for smoothing.
         Default: Computed from data.
-    weight: ndarray
+    weight : ndarray
         Value at each of the measured data points.
         Default: 1.
-    stats: bool
+    stats : bool
         Return statistical information, if True
 
     Returns
     -------
-    rho: ndarray
+    rho : ndarray
         Density at each of the sampling points, optionally weighted
         by the specified values
-    scale: ndarray | optional
+    scale : ndarray | optional
         Scale factors for each of the dimensions in the list of
         measured data points.
-    sigma: ndarray | optional
+    sigma : ndarray | optional
         Variance of the returned value at each sampling point.
     '''
     nx = x.size  # number of data points
@@ -279,24 +279,24 @@ def kde_nd(x, y, scale=None, weight=None, stats=False):
 
     Keywords
     --------
-    weight: ndarray
+    weight : ndarray | optional
         Value at each of the measured data points.
         Default: 1.
-    scale: ndarray
+    scale : ndarray | optional
         Scale factor for each dimension of data
         Default: Calculated from data.
-    stats: bool
+    stats: bool | optional
         Return statistical information, if True
 
     Returns
     -------
-    rho: ndarray
+    rho : ndarray
         Density at each of the sampling points, optionally weighted
         by the specified values
-    scale: ndarray | optional
+    scale : ndarray | optional
         Scale factors for each of the dimensions in the list of
         measured data points.
-    sigma: ndarray | optional
+    sigma : ndarray | optional
         Variance of the returned value at each sampling point.
     '''
     nd = len(x)     # number of dimensions
@@ -371,7 +371,7 @@ def example2d():
     plt.show()
 
 
-def example():
+def example1d():
     import matplotlib.pyplot as plt
 
     # Gaussian distributed random points
@@ -399,4 +399,5 @@ def example():
 
 
 if __name__ == '__main__':
+    example1d()
     example2d()
