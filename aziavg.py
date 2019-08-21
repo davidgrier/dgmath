@@ -1,25 +1,37 @@
 import numpy as np
 
+
 def aziavg(data, center=None, rad=None, weight=None, deinterlace=0):
-    """Azimuthal average
+    '''Azimuthal average
 
-    Args:
-       data (array): Two-dimensional data array.
+    ...
 
-    Kwargs:
-       center: [xc, yc] coordinates of the point around which to compute average
-           Default: geometric center
+    Arguments
+    ---------
+    data : ndarray
+        two-dimensional data array.
 
-       rad (int): maximum radius of average [pixels]
-           Default: half of the minimum dimension of the data
+    Keywords
+    --------
+    center : [xc, yc]
+        Coordinates of the point around which to compute average
+        Default: geometric center
+    rad : int
+        maximum radius of average [pixels]
+        Default: half of the minimum dimension of the data
+    weight : ndarray
+        relative weighting of each pixel in data.
+        Default: uniform weighting
+    deinterlace : int
+        0: do not deinterlace (Default)
+        1: average over odd scan lines
+        2: average over even scan lines
 
-       weight (array): relative weighting of each pixel in data.
-           Default: uniform weighting
-
-    Returns:
-        array: One-dimensional azimuthal average
-
-    """
+    Returns
+    -------
+    array : ndarray
+        One-dimensional azimuthal average
+    '''
     y, x = np.indices(data.shape)
 
     if center is None:
@@ -35,14 +47,14 @@ def aziavg(data, center=None, rad=None, weight=None, deinterlace=0):
     a = data
     if weight is not None:
         a *= weight
-            
+
     # distance to center
     r = np.hypot(x - xc, y - yc)
 
     if deinterlace > 0:
         n = np.mod(deinterlace, 2)
-        a = a[:,n::2]
-        r = r[:,n::2]
+        a = a[:, n::2]
+        r = r[:, n::2]
 
     # bin by distance to center
     rn = np.arange(rad)
@@ -53,7 +65,7 @@ def aziavg(data, center=None, rad=None, weight=None, deinterlace=0):
     fl = 1. - fh
     ah = fh * a
     al = fl * a
-    
+
     # bin up data according to distance
     acc = np.zeros(rad)
     count = np.zeros(rad)
@@ -63,11 +75,12 @@ def aziavg(data, center=None, rad=None, weight=None, deinterlace=0):
         acc[n] = ah.flat[w].sum()
         count[n-1] += fl.flat[w].sum()
         count[n] = fh.flat[w].sum()
-        
-    return acc/np.maximum(count,1e-3)
+
+    return acc/np.maximum(count, 1e-3)
+
 
 if __name__ == "__main__":
-    y, x = np.indices([101,101])
+    y, x = np.indices([101, 101])
     yc, xc = 40, 40
     r = np.hypot(x-xc, y-yc)
-    a = aziavg(r, center = [xc, yc])
+    a = aziavg(r, center=[xc, yc])
