@@ -327,14 +327,14 @@ def kde_nd(x, y, scale=None, weight=None, stats=False):
         sigma = np.empty(ny)
         for n in range(ny):
             z = 0.5 * np.sum(((t - s[n, :])/h)**2, axis=1)
-            value = np.exp(-z)
-            rho[n] = normalization * np.sum(value)
-            sigma[n] = normalization**2 * np.sum(value**2)
+            value = normalization * np.exp(-z)
+            rho[n] = np.sum(value)
+            sigma[n] = np.sum(value**2)
         return rho, h, sigma
     else:
         for n in range(ny):
             z = 0.5 * np.sum(((t - s[n, :])/h)**2, axis=1)
-            rho[n] = normalization * np.sum(np.exp(-z))
+            rho[n] = np.sum(normalization * np.exp(-z))
     return rho
 
 
